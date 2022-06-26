@@ -1,19 +1,17 @@
 package com.ruoyi.framework.web.domain;
 
-import com.ruoyi.common.utils.Arith;
 import com.ruoyi.common.utils.IpUtils;
 import com.ruoyi.framework.web.domain.server.Cpu;
 import com.ruoyi.framework.web.domain.server.Jvm;
 import com.ruoyi.framework.web.domain.server.Mem;
 import com.ruoyi.framework.web.domain.server.Sys;
 import com.ruoyi.framework.web.domain.server.SysFile;
+import lombok.Getter;
 import oshi.SystemInfo;
 import oshi.hardware.CentralProcessor;
 import oshi.hardware.CentralProcessor.TickType;
 import oshi.hardware.GlobalMemory;
 import oshi.hardware.HardwareAbstractionLayer;
-import oshi.software.os.FileSystem;
-import oshi.software.os.OSFileStore;
 import oshi.software.os.OperatingSystem;
 import oshi.util.Util;
 
@@ -30,59 +28,24 @@ public class Server {
     private static final int OSHI_WAIT_SECOND = 1000;
 
     /** CPU相关信息 */
-    private Cpu cpu = new Cpu();
+    @Getter
+    private final Cpu cpu = new Cpu();
 
     /** 內存相关信息 */
-    private Mem mem = new Mem();
+    @Getter
+    private final Mem mem = new Mem();
 
     /** JVM相关信息 */
-    private Jvm jvm = new Jvm();
+    @Getter
+    private final Jvm jvm = new Jvm();
 
     /** 服务器相关信息 */
-    private Sys sys = new Sys();
+    @Getter
+    private final Sys sys = new Sys();
 
     /** 磁盘相关信息 */
-    private List<SysFile> sysFiles = new LinkedList<>();
-
-    public Cpu getCpu() {
-        return cpu;
-    }
-
-    public void setCpu(Cpu cpu) {
-        this.cpu = cpu;
-    }
-
-    public Mem getMem() {
-        return mem;
-    }
-
-    public void setMem(Mem mem) {
-        this.mem = mem;
-    }
-
-    public Jvm getJvm() {
-        return jvm;
-    }
-
-    public void setJvm(Jvm jvm) {
-        this.jvm = jvm;
-    }
-
-    public Sys getSys() {
-        return sys;
-    }
-
-    public void setSys(Sys sys) {
-        this.sys = sys;
-    }
-
-    public List<SysFile> getSysFiles() {
-        return sysFiles;
-    }
-
-    public void setSysFiles(List<SysFile> sysFiles) {
-        this.sysFiles = sysFiles;
-    }
+    @Getter
+    private final List<SysFile> sysFiles = new LinkedList<>();
 
     public void copyTo() {
         SystemInfo systemInfo = new SystemInfo();
@@ -155,23 +118,8 @@ public class Server {
     /**
      * 设置磁盘信息
      */
-    private void setSysFiles(OperatingSystem os) {
-        FileSystem fileSystem = os.getFileSystem();
-        List<OSFileStore> fsArray = fileSystem.getFileStores();
-        for (OSFileStore fs : fsArray) {
-            long free = fs.getUsableSpace();
-            long total = fs.getTotalSpace();
-            long used = total - free;
-            SysFile sysFile = new SysFile();
-            sysFile.setDirName(fs.getMount());
-            sysFile.setSysTypeName(fs.getType());
-            sysFile.setTypeName(fs.getName());
-            sysFile.setTotal(convertFileSize(total));
-            sysFile.setFree(convertFileSize(free));
-            sysFile.setUsed(convertFileSize(used));
-            sysFile.setUsage(Arith.mul(Arith.div(used, total, 4), 100));
-            sysFiles.add(sysFile);
-        }
+    private void setSysFiles(OperatingSystem operatingSystem) {
+        operatingSystem.getFileSystem().getFileStores().forEach(osFileStore -> sysFiles.add(new SysFile(osFileStore)));
     }
 
     /**
@@ -180,10 +128,10 @@ public class Server {
      * @param size 字节大小
      * @return 转换后值
      */
-    public String convertFileSize(long size) {
-        long kb = 1024;
-        long mb = kb * 1024;
-        long gb = mb * 1024;
+    public static String convertFileSize(long size) {
+        long kb = 1 << 10;
+        long mb = 1 << 20;
+        long gb = 1 << 30;
         if (size >= gb) {
             return String.format("%.1f GB", (float) size / gb);
         } else if (size >= mb) {
