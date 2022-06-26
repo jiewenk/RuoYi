@@ -1,12 +1,14 @@
 package com.ruoyi.common.constant;
 
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+
 /**
  * 任务调度通用常量
- * 
+ *
  * @author ruoyi
  */
-public class ScheduleConstants
-{
+public class ScheduleConstants {
     public static final String TASK_CLASS_NAME = "TASK_CLASS_NAME";
 
     /** 执行目标key */
@@ -24,27 +26,14 @@ public class ScheduleConstants
     /** 不触发立即执行 */
     public static final String MISFIRE_DO_NOTHING = "3";
 
-    public enum Status
-    {
-        /**
-         * 正常
-         */
+    @Getter
+    @RequiredArgsConstructor
+    public enum Status {
+        /** 正常 */
         NORMAL("0"),
-        /**
-         * 暂停
-         */
+        /** 暂停 */
         PAUSE("1");
 
-        private String value;
-
-        private Status(String value)
-        {
-            this.value = value;
-        }
-
-        public String getValue()
-        {
-            return value;
-        }
+        private final String value;
     }
 }

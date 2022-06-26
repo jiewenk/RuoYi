@@ -2,11 +2,10 @@ package com.ruoyi.common.constant;
 
 /**
  * Shiro通用常量
- * 
+ *
  * @author ruoyi
  */
-public class ShiroConstants
-{
+public class ShiroConstants {
     /**
      * 当前登录的用户
      */
@@ -60,7 +59,7 @@ public class ShiroConstants
     /**
      * 验证码
      */
-    public static final String CURRENT_VALIDATECODE = "validateCode";
+    public static final String CURRENT_VALIDATE_CODE = "validateCode";
 
     /**
      * 验证码错误
@@ -70,10 +69,10 @@ public class ShiroConstants
     /**
      * 登录记录缓存
      */
-    public static final String LOGINRECORDCACHE = "loginRecordCache";
+    public static final String LOGIN_RECORD_CACHE = "loginRecordCache";
 
     /**
      * 系统活跃用户缓存
      */
-    public static final String SYS_USERCACHE = "sys-userCache";
+    public static final String SYS_USER_CACHE = "sys-userCache";
 }

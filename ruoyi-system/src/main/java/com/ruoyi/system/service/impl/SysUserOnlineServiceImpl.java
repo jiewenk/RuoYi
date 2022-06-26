@@ -118,7 +118,7 @@ public class SysUserOnlineServiceImpl implements ISysUserOnlineService
     @Override
     public void removeUserCache(String loginName, String sessionId)
     {
-        Cache<String, Deque<Serializable>> cache = ehCacheManager.getCache(ShiroConstants.SYS_USERCACHE);
+        Cache<String, Deque<Serializable>> cache = ehCacheManager.getCache(ShiroConstants.SYS_USER_CACHE);
         Deque<Serializable> deque = cache.get(loginName);
         if (StringUtils.isEmpty(deque) || deque.size() == 0)
         {
