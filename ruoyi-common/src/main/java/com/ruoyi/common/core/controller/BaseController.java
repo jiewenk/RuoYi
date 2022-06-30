@@ -75,6 +75,8 @@ public class BaseController {
 
     /**
      * 获取request
+     *
+     * @return {@link HttpServletRequest}
      */
     public HttpServletRequest getRequest() {
         return ServletUtils.getRequest();
@@ -82,6 +84,8 @@ public class BaseController {
 
     /**
      * 获取response
+     *
+     * @return {@link HttpServletResponse}
      */
     public HttpServletResponse getResponse() {
         return ServletUtils.getResponse();
@@ -89,6 +93,8 @@ public class BaseController {
 
     /**
      * 获取session
+     *
+     * @return {@link HttpSession}
      */
     public HttpSession getSession() {
         return getRequest().getSession();
@@ -96,14 +102,12 @@ public class BaseController {
 
     /**
      * 响应请求分页数据
+     *
+     * @param list 分页数据
+     * @return {@link TableDataInfo}表格分页数据对象
      */
-    @SuppressWarnings({"rawtypes", "unchecked"})
     protected TableDataInfo getDataTable(List<?> list) {
-        TableDataInfo rspData = new TableDataInfo();
-        rspData.setCode(0);
-        rspData.setRows(list);
-        rspData.setTotal(new PageInfo(list).getTotal());
-        return rspData;
+        return new TableDataInfo(new PageInfo<>(list).getTotal(), list, 0);
     }
 
     /**
@@ -128,6 +132,8 @@ public class BaseController {
 
     /**
      * 返回成功
+     *
+     * @return 操作结果
      */
     public AjaxResult success() {
         return AjaxResult.success();
@@ -135,6 +141,8 @@ public class BaseController {
 
     /**
      * 返回失败消息
+     *
+     * @return 操作结果
      */
     public AjaxResult error() {
         return AjaxResult.error();
@@ -142,6 +150,8 @@ public class BaseController {
 
     /**
      * 返回成功消息
+     *
+     * @return 操作结果
      */
     public AjaxResult success(String message) {
         return AjaxResult.success(message);
@@ -149,6 +159,8 @@ public class BaseController {
 
     /**
      * 返回成功数据
+     *
+     * @return 操作结果
      */
     public static AjaxResult success(Object data) {
         return AjaxResult.success("操作成功", data);
@@ -156,6 +168,8 @@ public class BaseController {
 
     /**
      * 返回失败消息
+     *
+     * @return 操作结果
      */
     public AjaxResult error(String message) {
         return AjaxResult.error(message);
@@ -163,6 +177,8 @@ public class BaseController {
 
     /**
      * 返回错误码消息
+     *
+     * @return 操作结果
      */
     public AjaxResult error(Type type, String message) {
         return new AjaxResult(type, message);
@@ -170,6 +186,8 @@ public class BaseController {
 
     /**
      * 页面跳转
+     *
+     * @return 最终需要跳转的页面
      */
     public String redirect(String url) {
         return StringUtils.format("redirect:{}", url);
@@ -177,6 +195,8 @@ public class BaseController {
 
     /**
      * 获取用户缓存信息
+     *
+     * @return 用户缓存信息
      */
     public SysUser getSysUser() {
         return ShiroUtils.getSysUser();
@@ -184,6 +204,8 @@ public class BaseController {
 
     /**
      * 设置用户缓存信息
+     *
+     * @param user 需要缓存的用户信息
      */
     public void setSysUser(SysUser user) {
         ShiroUtils.setSysUser(user);
@@ -191,6 +213,8 @@ public class BaseController {
 
     /**
      * 获取登录用户id
+     *
+     * @return 登录用户id
      */
     public Long getUserId() {
         return getSysUser().getUserId();
@@ -198,6 +222,8 @@ public class BaseController {
 
     /**
      * 获取登录用户名
+     *
+     * @return 登录用户名
      */
     public String getLoginName() {
         return getSysUser().getLoginName();
