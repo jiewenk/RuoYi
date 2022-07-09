@@ -116,7 +116,7 @@ public class SysDeptServiceImpl implements ISysDeptService {
             if (UserConstants.DEPT_NORMAL.equals(dept.getStatus())) {
                 Ztree ztree = new Ztree();
                 ztree.setId(dept.getDeptId());
-                ztree.setpId(dept.getParentId());
+                ztree.setPId(dept.getParentId());
                 ztree.setName(dept.getDeptName());
                 ztree.setTitle(dept.getDeptName());
                 if (isCheck) {

@@ -128,7 +128,7 @@ public class SysUserController extends BaseController
         {
             return error("新增用户'" + user.getLoginName() + "'失败，登录账号已存在");
         }
-        else if (StringUtils.isNotEmpty(user.getPhonenumber())
+        else if (StringUtils.isNotEmpty(user.getPhoneNumber())
                 && UserConstants.USER_PHONE_NOT_UNIQUE.equals(userService.checkPhoneUnique(user)))
         {
             return error("新增用户'" + user.getLoginName() + "'失败，手机号码已存在");
@@ -170,7 +170,7 @@ public class SysUserController extends BaseController
     {
         userService.checkUserAllowed(user);
         userService.checkUserDataScope(user.getUserId());
-        if (StringUtils.isNotEmpty(user.getPhonenumber())
+        if (StringUtils.isNotEmpty(user.getPhoneNumber())
                 && UserConstants.USER_PHONE_NOT_UNIQUE.equals(userService.checkPhoneUnique(user)))
         {
             return error("修改用户'" + user.getLoginName() + "'失败，手机号码已存在");

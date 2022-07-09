@@ -33,6 +33,7 @@
         <velocity.version>2.3</velocity.version>
         <lombok.version>1.18.24</lombok.version>
         <jetbrains.annotations.version>23.0.0</jetbrains.annotations.version>
+        <hutool.version>5.8.3</hutool.version>
     </properties>
 
     <!-- 依赖声明 -->
@@ -211,6 +212,13 @@
                 <artifactId>ruoyi-common</artifactId>
                 <version>${ruoyi.version}</version>
             </dependency>
+
+            <!--hutool-->
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-all</artifactId>
+                <version>${hutool.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -234,6 +242,10 @@
         <dependency>
             <groupId>org.jetbrains</groupId>
             <artifactId>annotations</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
         </dependency>
     </dependencies>
 

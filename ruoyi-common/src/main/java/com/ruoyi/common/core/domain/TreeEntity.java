@@ -1,12 +1,16 @@
 package com.ruoyi.common.core.domain;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * Tree基类
- * 
+ *
  * @author ruoyi
  */
-public class TreeEntity extends BaseEntity
-{
+@Getter
+@Setter
+public class TreeEntity extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
     /** 父菜单名称 */
@@ -20,44 +24,4 @@ public class TreeEntity extends BaseEntity
 
     /** 祖级列表 */
     private String ancestors;
-
-    public String getParentName()
-    {
-        return parentName;
-    }
-
-    public void setParentName(String parentName)
-    {
-        this.parentName = parentName;
-    }
-
-    public Long getParentId()
-    {
-        return parentId;
-    }
-
-    public void setParentId(Long parentId)
-    {
-        this.parentId = parentId;
-    }
-
-    public Integer getOrderNum()
-    {
-        return orderNum;
-    }
-
-    public void setOrderNum(Integer orderNum)
-    {
-        this.orderNum = orderNum;
-    }
-
-    public String getAncestors()
-    {
-        return ancestors;
-    }
-
-    public void setAncestors(String ancestors)
-    {
-        this.ancestors = ancestors;
-    }
 }
